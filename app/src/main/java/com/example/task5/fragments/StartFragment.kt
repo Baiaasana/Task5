@@ -10,24 +10,22 @@ import com.example.task5.databinding.FragmentStartBinding
 
 class StartFragment : Fragment() {
 
-    private var binding: FragmentStartBinding?= null
+    private var binding: FragmentStartBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
         binding = FragmentStartBinding.inflate(inflater, container, false)
-        return  binding!!.root
+        return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding!!.btnStart.setOnClickListener{
+        binding!!.btnStart.setOnClickListener {
             findNavController().navigate(StartFragmentDirections.actionStartFragmentToInfoFragment())
         }
-
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

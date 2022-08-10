@@ -10,7 +10,7 @@ object RetrofitClient {
 
     private const val BASE_URL = "https://run.mocky.io/v3/"
 
-    val retrofitBuilder by lazy {
+    private val retrofitBuilder by lazy {
         Retrofit
             .Builder()
             .baseUrl(BASE_URL)
@@ -18,6 +18,8 @@ object RetrofitClient {
             .build()
             .create(ApiService::class.java)
     }
+
+    fun retrofit() = retrofitBuilder
 }
 
 interface ApiService {

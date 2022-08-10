@@ -10,13 +10,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tv_field"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="8"
             android:hint="text"
-            android:enabled="false"
             android:textSize="18sp"
             android:inputType="text"
             android:paddingStart="20dp"

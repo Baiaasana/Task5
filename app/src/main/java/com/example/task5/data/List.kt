@@ -2,7 +2,7 @@ package com.example.task5.data
 
 val list = listOf(
 
-    ItemModel.List.NestedList(
+    ItemModel(
         fieldId = 1,
         fieldType = "input",
         hint = "UserName",
@@ -11,7 +11,7 @@ val list = listOf(
         keyboard = "text",
         required = false
     ),
-    ItemModel.List.NestedList(
+    ItemModel(
         fieldId = 2,
         fieldType = "input",
         hint = "Email",
@@ -20,7 +20,7 @@ val list = listOf(
         keyboard = "text",
         required = true
     ),
-    ItemModel.List.NestedList(
+    ItemModel(
         fieldId = 3,
         fieldType = "input",
         hint = "Phone",
@@ -29,7 +29,7 @@ val list = listOf(
         keyboard = "text",
         required = true
     ),
-    ItemModel.List.NestedList(
+    ItemModel(
         fieldId = 4,
         fieldType = "input",
         hint = "FullName",
@@ -38,7 +38,7 @@ val list = listOf(
         keyboard = "text",
         required = true
     ),
-    ItemModel.List.NestedList(
+    ItemModel(
         fieldId = 5,
         fieldType = "chooser",
         hint = "Birthday",
@@ -47,7 +47,7 @@ val list = listOf(
         keyboard = null,
         required = false
     ),
-    ItemModel.List.NestedList(
+    ItemModel(
         fieldId = 6,
         fieldType = "chooser",
         hint = "Gender",
@@ -57,3 +57,4 @@ val list = listOf(
         required = false
     )
 )
+val mapOfUserInfo = mutableMapOf<Int, UserInfo>()
