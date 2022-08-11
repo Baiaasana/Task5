@@ -1,5 +1,6 @@
 package com.example.task5.adapters
 
+import android.app.DatePickerDialog
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
@@ -11,24 +12,11 @@ import com.example.task5.databinding.SingleField1Binding
 import com.example.task5.databinding.SingleField2Binding
 import com.example.task5.databinding.SingleField3Binding
 
+import java.util.*
+
 class ItemAdapter : ListAdapter<ItemModel, RecyclerView.ViewHolder>(ItemDiffCallback()) {
 
-//    var itemClick: ((ItemModel.List.NestedList) -> Unit)? = null
-
-    private lateinit var mListener: OnItemClickListener
-    private lateinit var mListener2: OnItemClickListener
-
-    interface OnItemClickListener {
-        fun onItemClick(position: ItemModel)
-    }
-
-    fun setOnItemClickListener(listener: OnItemClickListener) {
-        mListener = listener
-    }
-
-    fun setOnItemClickListener2(listener2: OnItemClickListener) {
-        mListener2 = listener2
-    }
+    var itemClick: ((ItemModel) -> Unit)? = null
 
     companion object {
         const val INPUT = 1
@@ -36,17 +24,16 @@ class ItemAdapter : ListAdapter<ItemModel, RecyclerView.ViewHolder>(ItemDiffCall
         const val CHOOSER_GENDER = 3
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
             INPUT -> FirstItemViewHolder(SingleField1Binding.inflate(LayoutInflater.from(parent.context),
                 parent,
                 false))
             CHOOSER_DATE -> SecondItemViewHolder(SingleField2Binding.inflate(LayoutInflater.from(
-                parent.context), parent, false), mListener)
+                parent.context), parent, false), parent)
             else -> ThirdItemViewHolder(SingleField3Binding.inflate(LayoutInflater.from(parent.context),
                 parent,
-                false), mListener2)
+                false), parent)
         }
     }
 
@@ -87,37 +74,47 @@ class ItemAdapter : ListAdapter<ItemModel, RecyclerView.ViewHolder>(ItemDiffCall
     }
 
     inner class SecondItemViewHolder(
-        private val binding: SingleField2Binding,
-        listener: OnItemClickListener,
+        private val binding: SingleField2Binding, val parent: ViewGroup,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
             val item = getItem(adapterPosition)
-            binding.tvField.text = item.hint
+            binding.tvField.hint = item.hint
             Glide().setImage(item.icon, binding.imgIcon)
-//            itemView.setOnClickListener {
-//                itemClick?.invoke(item)
-//            }
-            itemView.setOnClickListener {
-                mListener.onItemClick(item)
+            binding.imgIcon.setOnClickListener {
+//               itemClick?.invoke(item)
+                datePicker()
             }
+        }
+
+        private fun datePicker() {
+            val calendar = Calendar.getInstance()
+
+            val year = calendar.get(Calendar.YEAR)
+            val month = calendar.get(Calendar.MONTH)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val popup = DatePickerDialog(parent.context, { view, year, monthOfYear, dayOfMonth ->
+                binding.tvField.setText("$dayOfMonth/$monthOfYear/$year")
+            }, year, month, day)
+            popup.show()
         }
     }
 
     inner class ThirdItemViewHolder(
-        private val binding: SingleField3Binding,
-        listener: OnItemClickListener,
+        private val binding: SingleField3Binding, parent: ViewGroup,
     ) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind() {
-            val item2 = currentList[adapterPosition]
-            binding.tvField.text = item2.hint
-            Glide().setImage(item2.icon, binding.imgIcon)
-            itemView.setOnClickListener {
-                mListener2.onItemClick(item2)
+            val item = currentList[adapterPosition]
+            binding.tvField.hint = item.hint
+            Glide().setImage(item.icon, binding.imgIcon)
+            binding.imgIcon.setOnClickListener {
+                itemClick?.invoke(item)
+
             }
         }
     }
 }
+

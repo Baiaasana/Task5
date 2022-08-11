@@ -21,7 +21,19 @@
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" >
         <action
-            android:id="@+id/action_infoFragment_to_startFragment"
-            app:destination="@id/startFragment" />
+            android:id="@+id/action_infoFragment_to_dialogFragment"
+            app:destination="@id/dialogFragment" />
+        <action
+            android:id="@+id/action_infoFragment_to_datePickerFragment"
+            app:destination="@id/datePickerFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/dialogFragment"
+        android:name="com.example.task5.DialogFragment"
+        android:label="DialogFragment"
+        tools:layout="@layout/fragment_dialog"/>
+    <dialog
+        android:id="@+id/datePickerFragment"
+        android:name="com.example.task5.DatePickerFragment"
+        android:label="DatePickerFragment" />
 </navigation>
